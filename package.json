@@ -1,0 +1,29 @@
+{
+  "name": "dearly",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --configLoader runner",
+    "build": "vite build --configLoader runner",
+    "preview": "vite preview --configLoader runner",
+    "check": "npm run build"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.4",
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
+    "dompurify": "^3.2.7",
+    "gsap": "^3.13.0",
+    "interactjs": "^1.10.27",
+    "jquery": "^3.7.1",
+    "qrcode": "^1.5.4",
+    "quill": "^2.0.3"
+  },
+  "devDependencies": {
+    "vite": "^7.1.7"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
+}

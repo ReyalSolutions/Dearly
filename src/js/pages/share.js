@@ -1,0 +1,18 @@
+import { renderShell } from '../components/shell.js';
+import { copyShareLink, qrDataUrl, shareLetter, socialShareUrls } from '../letters/sharing.js';
+import { showToast } from '../utils/toast.js';
+import { setDocumentMeta } from '../utils/helpers.js';
+
+export function sharePage(auth, slug) {
+  setDocumentMeta({ title: 'Your letter is ready — Dearly', description: 'Share your Dearly letter.', noIndex: true });
+  const url = `${location.origin}/l/${slug}`;
+  return renderShell(`<section class="container app-page"><div class="empty-state" style="padding-top:5.5rem"><div class="empty-state-icon">🎉</div><span class="eyebrow">Ready to be opened</span><h1 class="display-title mt-2">Your letter is on its way.</h1><p class="text-secondary mx-auto" style="max-width:35rem">Your message is now waiting for its special someone. Share the link whenever the moment feels right.</p><div class="card border-0 mx-auto mt-4 p-2" style="max-width:600px"><div class="d-flex align-items-center gap-2 rounded p-2" style="background:#fff7f6"><i class="bi bi-link-45deg fs-4 text-primary-brand"></i><code class="text-truncate text-start flex-grow-1" id="share-url">${url}</code><button id="copy-share" class="btn btn-primary btn-sm flex-shrink-0" type="button">Copy link</button></div></div><div class="d-flex flex-wrap justify-content-center gap-2 mt-3"><button id="native-share" class="btn btn-light" type="button"><i class="bi bi-share me-1"></i>Share</button><button id="show-qr" class="btn btn-light" type="button"><i class="bi bi-qr-code me-1"></i>Show QR code</button><a data-route href="/l/${slug}" class="btn btn-light"><i class="bi bi-eye me-1"></i>View letter</a></div><p class="text-secondary small mt-4 mb-2">Or open the sharing app you prefer</p><div class="d-flex flex-wrap justify-content-center gap-2" id="social-links"></div></div></section><div class="modal fade" id="qr-modal" tabindex="-1" aria-labelledby="qr-title" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-sm"><div class="modal-content border-0 text-center"><div class="modal-header border-0"><h2 class="modal-title h5" id="qr-title">Scan to open</h2><button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body pt-0"><img id="qr-image" class="img-fluid rounded" alt="QR code for this letter" /><a id="download-qr" class="btn btn-light btn-sm mt-3" download="dearly-letter-qr.png">Download QR code</a></div></div></div></div>`, { authenticated: { initial: auth.initial } });
+}
+
+export function bindSharePage(slug) {
+  document.querySelector('#copy-share')?.addEventListener('click', async () => { try { await copyShareLink(slug); } catch { showToast('Copy was unavailable. Select the link to copy it.', 'warning'); } });
+  document.querySelector('#native-share')?.addEventListener('click', async () => { try { await shareLetter(slug); } catch (error) { if (error.name !== 'AbortError') showToast('Sharing was unavailable. Try copying the link.', 'warning'); } });
+  const labels = { facebook: 'Facebook', whatsapp: 'WhatsApp', telegram: 'Telegram', x: 'X', email: 'Email' };
+  document.querySelector('#social-links').innerHTML = Object.entries(socialShareUrls(slug)).map(([network, href]) => `<a class="btn btn-light btn-sm" href="${href}" target="_blank" rel="noopener noreferrer">${labels[network]}</a>`).join('');
+  document.querySelector('#show-qr')?.addEventListener('click', async () => { try { const dataUrl = await qrDataUrl(slug); document.querySelector('#qr-image').src = dataUrl; document.querySelector('#download-qr').href = dataUrl; window.bootstrap.Modal.getOrCreateInstance(document.querySelector('#qr-modal')).show(); } catch { showToast('We could not create a QR code just now.', 'error'); } });
+}

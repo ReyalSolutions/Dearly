@@ -1,0 +1,19 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.16.0
+2 info using node@v24.18.0
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\MIS-03\Documents\Codex\2026-09-11\cr\.npmrc
+5 silly config load:file:C:\Users\MIS-03\.npmrc
+6 silly config load:file:C:\Users\MIS-03\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm approve-scripts esbuild
+8 verbose argv "approve-scripts" "esbuild" "--cache" ".npm-cache"
+9 verbose logfile logs-max:10 dir:C:\Users\MIS-03\Documents\Codex\2026-09-11\cr\.npm-cache\_logs\2026-09-11T01_00_57_980Z-
+10 verbose logfile C:\Users\MIS-03\Documents\Codex\2026-09-11\cr\.npm-cache\_logs\2026-09-11T01_00_57_980Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:2348810240 maxSize:587202560 maxEntrySize:293601280
+13 verbose cwd C:\Users\MIS-03\Documents\Codex\2026-09-11\cr
+14 verbose os Windows_NT 10.0.22631
+15 verbose node v24.18.0
+16 verbose npm  v11.16.0
+17 verbose exit 0
+18 info ok

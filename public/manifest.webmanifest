@@ -1,0 +1,5 @@
+{
+  "name": "Dearly", "short_name": "Dearly", "start_url": "/", "display": "standalone",
+  "background_color": "#fff9f5", "theme_color": "#ff6b81",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
